@@ -1,0 +1,53 @@
+<template>
+    <div>
+        <h4>Поиск сообществ по названию</h4>
+        <form @submit="searchInterestByName">
+            <input type="text" name="name" id="name" placeholder="Название" required v-model="name">
+            <input type="submit" value="Поиск">
+        </form>
+
+        <ul class="search-result">
+            <li v-for="(interest, index) in interests" :key="index">
+                {{interest.name}}
+            </li>
+        </ul>
+
+        <div v-show="noDataFound">
+            Данные, соответствующие параметрам поиска, не найдены
+        </div>
+    </div>
+</template>
+
+<script>
+    import http from "../../http-common";
+    export default {
+        name: "SearchInterest",
+        data() {
+            return {
+                name: "",
+                interest: [],
+                noDataFound: false
+            };
+        },
+        methods: {
+            searchInterestByName(e) {
+                e.preventDefault(); // запрет отправки формы, так как обрабатывать будем с помощью методов axios
+                http
+                    .get("/interest/name/" + this.name)
+                    .then(response => {
+                        if (response.data.length > 0){
+                            this.interests = response.data;
+                            this.noDataFound = false;
+                        }
+                        else{
+                            this.noDataFound = true;
+                        }
+
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            }
+        }
+    };
+</script>
