@@ -29,7 +29,7 @@
         data() {
             return {
                 name: "",
-                interest: [],
+                interests: [],
                 noDataFound: false
             };
         },

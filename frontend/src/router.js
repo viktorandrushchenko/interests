@@ -18,7 +18,7 @@ const routes = [
     },
     {
         path: "/interest/:id",
-        name: "Interest-details",
+        name: "interest-details",
         component: Interest,
         props: true, // указываем, что компонент Abiturient.vue может принимать параметры в адресной строке, например, в path указан id
         meta: {

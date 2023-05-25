@@ -45,7 +45,7 @@
                 };
                 // Либо var data = this.user;
                 http
-                    .post("/addAbiturient", data)
+                    .post("/addInterest", data)
                     .then(response => { // запрос выполнился успешно
                         this.interest.id = response.data.id;
                         this.submitted = true;

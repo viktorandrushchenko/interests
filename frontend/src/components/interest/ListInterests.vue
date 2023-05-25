@@ -42,6 +42,7 @@
                     .get("/interests") // обращаемся к серверу для получения списка абитуриентов
                     .then(response => { // запрос выполнен успешно
                         this.interests = response.data;
+                        console.log(this.interests);
                     })
                     .catch(e => { // запрос выполнен с ошибкой
                         console.log(e);
