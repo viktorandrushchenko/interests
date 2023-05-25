@@ -11,7 +11,9 @@
 
         <ul class="list-group">
             <li v-for="(interest, index) in interests" :key="index" class="list-group-item">
-                {{interest.name}}
+                <router-link :to="{name: 'interest-details', params: {id: interest.id}}">
+                    {{interest.name}}
+                </router-link>
             </li>
         </ul>
 
