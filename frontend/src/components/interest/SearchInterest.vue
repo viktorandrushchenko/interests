@@ -1,21 +1,25 @@
 <template>
+    <div class="container">
     <div>
         <h4>Поиск сообществ по названию</h4>
-        <form @submit="searchInterestByName">
-            <input type="text" name="name" id="name" placeholder="Название" required v-model="name">
-            <input type="submit" value="Поиск">
+        <form @submit="searchInterestByName" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="name" id="name" placeholder="Название" required v-model="name" class="form-control">
+                <button type="submit" class="btn btn-primary">Поиск</button>
+            </div>
         </form>
 
-        <ul class="search-result">
-            <li v-for="(interest, index) in interests" :key="index">
+        <ul class="list-group">
+            <li v-for="(interest, index) in interests" :key="index" class="list-group-item">
                 {{interest.name}}
             </li>
         </ul>
 
-        <div v-show="noDataFound">
+        <div v-show="noDataFound" class="mt-3">
             Данные, соответствующие параметрам поиска, не найдены
         </div>
     </div>
+</div>
 </template>
 
 <script>

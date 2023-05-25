@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 // импорт компонентов
 import ListInterests from "./components/interest/ListInterests";
 import AddInterest from "./components/interest/AddInterest";
-import Interest from "./components/interest/Interest";
+import Interest from "./components/interest/InteRest";
 import SearchInterest from "./components/interest/SearchInterest";
 
 // определяем маршруты

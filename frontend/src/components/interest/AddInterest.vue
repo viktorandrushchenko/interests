@@ -1,28 +1,27 @@
 <template>
+    <div class="container">
     <div>
         <h4>Добавление сообщества</h4>
-        <div v-if="!submitted">
-            <!--В @submit указывается обработчик, который выполнится после нажатия на кнопку "Добавить"
-            Обработчик addAbiturient определён в script-->
+        <div v-if="!submitted" class="mt-3">
             <form @submit="addInterest">
-                <!--v-model - директива для связывания данных с элементами.
-                Связь происходит при помощи переменных, которые определены в data()-->
-                <input type="text" name="name" placeholder="Название" required v-model="interest.name">
-                <input type="submit" value="Добавить">
+                <div class="mb-3">
+                    <label for="short_name" class="form-label">Название</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Введите название" required v-model="interest.name">
+                </div>
+                <button type="submit" class="btn btn-success">Добавить</button>
             </form>
         </div>
-        <div v-else>
+        <div v-else class="mt-3">
             <h4>Вы успешно добавили запись</h4>
-            <div>
-                <!--В v-on:click указывается обработчик, который выполниться после нажатия на кнопку "Добавить нового абитуриента"
-                Обработчик newAbiturient определён в script-->
-                <button v-on:click="newInterest">Добавить новое сообщество</button>
+            <div class="mb-2">
+                <button v-on:click="newInterest" class="btn btn-primary">Добавить новое сообщество</button>
             </div>
             <div>
-                <router-link to="/listInterests">Вернуться к списку сообществ</router-link>
+                <router-link to="/listInterests" class="btn btn-secondary">Вернуться к списку сообществ</router-link>
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
