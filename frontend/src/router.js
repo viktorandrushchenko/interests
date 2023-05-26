@@ -5,6 +5,11 @@ import AddInterest from "./components/interest/AddInterest";
 import Interest from "./components/interest/InteRest";
 import SearchInterest from "./components/interest/SearchInterest";
 
+import Login from "./components/authorization/Login";
+import Register from "./components/authorization/Register";
+
+import store from "./store/index";
+
 // определяем маршруты
 const routes = [
     {
@@ -41,6 +46,22 @@ const routes = [
             title: "Поиск абитуриентов"
         }
     },
+    {
+        path: "/login",
+        name: "login-user",
+        component: Login,
+        meta: {
+            title: "Вход в систему"
+        }
+    },
+    {
+        path: "/register",
+        name: "register-user",
+        component: Register,
+        meta: {
+            title: "Регистрация"
+        }
+    }
 ];
 
 const router = createRouter({
@@ -49,10 +70,29 @@ const router = createRouter({
 });
 
 // указание заголовка компонентам (тега title), заголовки определены в meta
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     // для тех маршрутов, для которых не определены компоненты, подключается только App.vue
     // поэтому устанавливаем заголовком по умолчанию название "Главная страница"
     document.title = to.meta.title || 'Главная страница';
-    next();
+
+    // проверяем наличие токена и срок его действия
+    const auth = await store.getters["auth/isTokenActive"];
+    if (auth) {
+        return next();
+    }
+    // если токена нет или его срок действия истёк, а страница доступна только авторизованному пользователю,
+    // то переходим на страницу входа в систему (ссылка на /login)
+    else if (!auth && to.meta.requiredAuth) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        await store.dispatch("auth/refreshToken", user)
+            .then(() => {
+                return next();
+            })
+            .catch(() => {
+                return next({path: "/login"});
+            });
+        return next({ path: "/login" });
+    }
+    return next();
 });
 export default router;
