@@ -22,3 +22,6 @@ app.use(cors(corsOptions));
 
 var interest = require('./app/route/interest.route.js');
 interest(app);
+
+var auth = require('./app/route/auth.route.js');
+auth(app);
