@@ -1,5 +1,6 @@
 var db = require('../config/db.config.js');
 var Interest = db.interest;
+var User_interests = db.user_interests;
 var globalFunctions = require('../config/global.functions.js');
 
 exports.findAll = (req, res) => {
@@ -14,13 +15,24 @@ exports.findAll = (req, res) => {
 
 // Добавление абитуриента
 exports.create = (req, res) => {
-    Interest.create({
+    var a;
+    Interest.create({       
         name: req.body.name,
     }).then(object => {
-        globalFunctions.sendResult(res, object);
+        a = object.id;
+        User_interests.create({
+            interest_id: a,
+            user_id: req.body.user_id,
+            admin: "1"
+        }).then(object => {
+            globalFunctions.sendResult(res, object);
+        }).catch(err => {
+            globalFunctions.sendError(res, err);
+        })
     }).catch(err => {
         globalFunctions.sendError(res, err);
     })
+    
 };
 
 // Обновление данных абитуриента по id
