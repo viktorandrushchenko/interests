@@ -93,3 +93,17 @@ exports.findByInterest_id = (req, res) => {
         globalFunctions.sendError(res, err);
     })
 };
+
+exports.searchUser_interestsByUserIdInterestId= (req, res) => {
+    User_interests.findAll({
+      where: {
+        user_id: req.params.user_id,
+        interest_id: req.params.interest_id
+      },
+      attributes: ['admin']
+    }).then(objects => {
+        globalFunctions.sendResult(res, objects);
+    }).catch(err => {
+        globalFunctions.sendError(res, err);
+    })
+  };

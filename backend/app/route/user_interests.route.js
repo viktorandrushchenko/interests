@@ -22,4 +22,7 @@ module.exports = (app) => {
   
     // Получение данных абитуриента по фамилии
     app.get('/api/user_interests/interest_id/:interest_id', user_interests.findByInterest_id);
+
+    app.get('/api/user_interests/interest_user_id/:interest_id/:user_id', user_interests.searchUser_interestsByUserIdInterestId);
 };
+
