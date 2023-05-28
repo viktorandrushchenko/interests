@@ -3,7 +3,7 @@
     <div v-if="displayContent">
     <ul class="list-group mt-3">
       <li v-for="(myInterest, index) in myInterests" :key="index" class="list-group-item">        
-          <router-link :to="{name: 'interest-details', params: {id: myInterest.id}}">{{interests[myInterest.interest_id]?.name}}</router-link>
+          <router-link class="nav-link" :to="{name: 'interest-details', params: {id: myInterest.id}}">{{interests[myInterest.interest_id]?.name}}</router-link>
       </li>
     </ul>
     </div>

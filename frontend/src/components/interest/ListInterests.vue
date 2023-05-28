@@ -18,7 +18,7 @@
     </nav>
     <ul class="list-group mt-3">
         <li v-for="(interest, index) in interests" :key="index" class="list-group-item">
-            <router-link :to="{name: 'interest-details', params: {id: interest.id}}">
+            <router-link class="nav-link" :to="{name: 'interest-details', params: {id: interest.id}}">
                 {{interest.name}}
             </router-link>
         </li>

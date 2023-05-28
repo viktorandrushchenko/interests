@@ -12,9 +12,18 @@ import store from "./store/index";
 
 import ListMyInterests from "./components/interest/ListMyInterests";
 import ListPosts from "./components/post/ListPosts";
+import AddPost from "./components/post/AddPost";
 
 // определяем маршруты
 const routes = [
+    {
+        path: "/addPost",
+        name: "add-post",
+        component: AddPost,
+        meta: {
+            title: "Добавление поста"
+        }
+    },
     {
         path: "/listPosts", // указание маршрута, по которому будем переходить к списку абитуриентов
         name: "Posts", // имя маршрута
