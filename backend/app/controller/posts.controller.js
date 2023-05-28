@@ -1,5 +1,6 @@
 var db = require('../config/db.config.js');
 var Posts = db.posts;
+var Post_interests = db.post_interests
 var globalFunctions = require('../config/global.functions.js');
 
 exports.findAll = (req, res) => {
@@ -20,7 +21,16 @@ exports.create = (req, res) => {
         body: req.body.body,
         created_at: Date.now()
     }).then(object => {
-        globalFunctions.sendResult(res, object);
+        a = object.id;
+        Post_interests.create({
+            post_id: a,
+            interest_id: req.body.interest_id
+        }).then(object => {
+            globalFunctions.sendResult(res, object);
+        }).catch(err => {
+            globalFunctions.sendError(res, err);
+        })
+        
     }).catch(err => {
         globalFunctions.sendError(res, err);
     })
