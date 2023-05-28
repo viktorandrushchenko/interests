@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
         Interest.associate = (models) => {
             // Определение связи один-ко-многим с таблицей direction. Это определение связи с одной стороны.
             // Связь также определена со второй стороны (со стороны модели direction): в файле direction.model.js
-            Interest.hasMany(models.post_interests, {
+            Interest.hasMany(models.posts, {
                 foreignKey: 'interest_id',
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',

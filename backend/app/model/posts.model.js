@@ -20,6 +20,10 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.TEXT,
                 allowNull: false
             },
+            interest_id: {
+                type: Sequelize.INTEGER,
+                allowNull: false
+            },
             created_at: {
                 type: Sequelize.DATE,
                 allowNull: false
@@ -30,12 +34,10 @@ module.exports = (sequelize, Sequelize) => {
     Posts.associate = (models) => {
         // Определение связи один-ко-многим с таблицей university. Это определение связи с одной стороны.
         // Связь также определена со второй стороны (со стороны модели university): в файле university.model.js
-        Posts.hasMany(models.post_interests, {
-            foreignKey: 'post_id',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            sourceKey: 'id'
+        Posts.belongsTo(models.interest, {
+            foreignKey: 'interest_id'
         });
+
 
         // Определение связи один-ко-многим с таблицей statement. Это определение связи с одной стороны.
         // Связь также определена со второй стороны (со стороны модели statement): в файле statement.model.js

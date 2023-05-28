@@ -1,6 +1,5 @@
 var db = require('../config/db.config.js');
 var Posts = db.posts;
-var Post_interests = db.post_interests
 var globalFunctions = require('../config/global.functions.js');
 
 exports.findAll = (req, res) => {
@@ -19,18 +18,10 @@ exports.create = (req, res) => {
         user_id: req.body.user_id,
         title: req.body.title,
         body: req.body.body,
+        interest_id: req.body.interest_id,
         created_at: Date.now()
     }).then(object => {
-        a = object.id;
-        Post_interests.create({
-            post_id: a,
-            interest_id: req.body.interest_id
-        }).then(object => {
-            globalFunctions.sendResult(res, object);
-        }).catch(err => {
-            globalFunctions.sendError(res, err);
-        })
-        
+        globalFunctions.sendResult(res, object);
     }).catch(err => {
         globalFunctions.sendError(res, err);
     })
@@ -77,4 +68,17 @@ exports.findById = (req, res) => {
         .catch(err => {
             globalFunctions.sendError(res, err);
         })
+};
+
+// Получение данных абитуриента по id
+exports.findByInterests_id = (req, res) => {
+    Posts.findAll({
+        where: {
+            interest_id: req.params.interest_id
+        }
+    }).then(objects => {
+        globalFunctions.sendResult(res, objects);
+    }).catch(err => {
+        globalFunctions.sendError(res, err);
+    })
 };

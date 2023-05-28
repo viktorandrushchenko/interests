@@ -17,4 +17,7 @@ module.exports = (app) => {
     // Получение данных абитуриента по id
     app.get('/api/posts/:id', posts.findById);
 
+    // Получение данных абитуриента по interest_id
+    app.get('/api/posts/interest_id/:interest_id', posts.findByInterests_id);
+
 };
