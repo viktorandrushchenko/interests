@@ -2,12 +2,34 @@
     <div class="container"> 
       <nav class="navbar navbar-expand-lg navbar-light bg-custom"> 
         <div class="container-fluid"> 
-          <div class="navbar-nav" id="navbarNav"> 
-            <li class="nav-item"> 
-              <router-link class="nav-link" :to="{name: 'add-post', params: {id: this.$route.params.id}}"> 
-                <span class="navbar-brand mb-0 h1">Добавить пост</span> 
-              </router-link> 
-            </li>  
+          <div class="navbar-nav" id="navbarNav">  
+            <div v-if="!isAdmin"> 
+              <div v-if="!isAvto"> 
+              <li class="nav-item"> 
+                <button v-on:click="addToInterest" class="btn btn-primary">Вступить</button>
+              </li>
+              </div>
+              <div v-else>
+              <li class="nav-item"> 
+                <button v-on:click="DeleteFromInterest" class="btn btn-primary">Выйти</button>
+              </li>
+              <li class="nav-item"> 
+                <router-link class="nav-link" :to="{name: 'add-post', params: {id: this.$route.params.id}}"> 
+                  <span class="navbar-brand mb-0 h1">Добавить пост</span> 
+                </router-link> 
+              </li> 
+            </div>
+            </div>
+            <div v-else>
+              <li class="nav-item"> 
+                <button v-on:click="deleteInterest" class="btn btn-primary">удалить сообщество</button>
+              </li>
+              <li class="nav-item"> 
+                <router-link class="nav-link" :to="{name: 'add-post', params: {id: this.$route.params.id}}"> 
+                  <span class="navbar-brand mb-0 h1">Добавить пост</span> 
+                </router-link> 
+              </li> 
+            </div>
           </div> 
         </div> 
       </nav> 
@@ -15,11 +37,11 @@
         <div class="col-md-8 offset-md-2"> 
           <ul class="list-group"> 
             <li v-for="(post, index) in posts" :key="index" class="list-group-item d-flex justify-content-between align-items-start"> 
-              <router-link class="nav-link" :to="{ name: 'interest-details', params: { id: post.id } }"> 
+              <router-link class="nav-link" :to="{ name: 'post-details', params: { id: post.id } }"> 
                 <div class="ms-2 me-auto"> 
                   <div class="badge bg-primary rounded-pill">{{ users[post.user_id]?.username }}</div> 
                   <div class="fw-bold" >{{ post.title }}</div>
-                  <div>{{ post.body }}</div>                                    
+                  <div class="text-break">{{ post.body }}</div>                                    
                   <div class="small">{{ post.created_at }}</div> 
                 </div> 
                 
@@ -40,9 +62,81 @@
             return {
                 posts: [],
                 users: [],
+                isAdmin: 0,
+                isAvto: 0,
             };
         },
-        methods: { // методы компонента
+        computed: { // вычисляемые свойства
+            currentUser() {
+                return this.$store.state.auth.user;
+            },
+            interestId() {
+              return this.$route.params.id
+            },
+        },
+        methods: {
+          deleteInterest() {                
+                          http
+                            .post(`/deleteInterest/${this.interestId}`)
+                            .then(response => {
+                              console.log(response.data); // выводим ответ сервера в консоль
+                              window.location.reload(); // перезагружаем страницу после удаления
+                            })
+                            .catch(e => {
+                              console.log(e);
+                            });
+          },
+          DeleteFromInterest() { 
+            var user_interest_id = 1;
+            http                   
+                    .get("/user_interests/interest_user_id/" + this.interestId + "/" + this.currentUser.id) // обращаемся к серверу для получения списка абитуриентов
+                    .then(response => { // запрос выполнен успешно
+                        if(response.data.length > 0) {
+                          user_interest_id = response.data[0].id;
+                          http
+                            .post(`/deleteUser_interests/${user_interest_id}`)
+                            .then(response => {
+                              console.log(response.data); // выводим ответ сервера в консоль
+                              window.location.reload(); // перезагружаем страницу после удаления
+                            })
+                            .catch(e => {
+                              console.log(e);
+                            });
+                        }
+                    })
+                    .catch(e => { // запрос выполнен с ошибкой
+                        console.log(e);
+                    });
+          },
+          addToInterest(e) {
+                e.preventDefault(); // запрет отправки формы, так как обрабатывать будем с помощью методов axios
+                var data = {
+                    user_id: this.currentUser.id,
+                    interest_id: this.interestId,
+                    admin: 0,
+                    
+                };
+                // Либо var data = this.user;
+                http
+                    .post("/addUser_interests", data)
+                    .catch(e => { // при выполнении запроса возникли ошибки
+                        console.log(e);
+                    });
+                    window.location.reload();
+            },
+            getUserInterest() {
+                http                   
+                    .get("/user_interests/interest_user_id/" + this.interestId + "/" + this.currentUser.id) // обращаемся к серверу для получения списка абитуриентов
+                    .then(response => { // запрос выполнен успешно
+                        if(response.data.length > 0) {
+                          this.isAvto = 1;
+                          this.isAdmin = response.data[0].admin;
+                        }
+                    })
+                    .catch(e => { // запрос выполнен с ошибкой
+                        console.log(e);
+                    });
+            },
             getPosts() {
                 const interest_id = this.$route.params.id;
                 http                   
@@ -73,6 +167,7 @@
         mounted() { // загружаем данные абитуриентов. Обработчик mounted() вызывается после монтирования экземпляра шаблона
             this.getPosts();
             this.getUsers();
+            this.getUserInterest();
         },
     }
 </script>

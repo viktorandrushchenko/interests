@@ -13,9 +13,19 @@ import store from "./store/index";
 import ListMyInterests from "./components/interest/ListMyInterests";
 import ListPosts from "./components/post/ListPosts";
 import AddPost from "./components/post/AddPost";
+import Post from "./components/post/PosT";
 
 // определяем маршруты
 const routes = [
+    {
+        path: "/post/:id",
+        name: "post-details",
+        component: Post,
+        props: true, // указываем, что компонент Abiturient.vue может принимать параметры в адресной строке, например, в path указан id
+        meta: {
+            title: "Данные поста"
+        }
+    },
     {
         path: "/addPost/:id",
         name: "add-post",
