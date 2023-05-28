@@ -75,7 +75,8 @@ exports.findByInterests_id = (req, res) => {
     Posts.findAll({
         where: {
             interest_id: req.params.interest_id
-        }
+        },
+        order: [['created_at', 'DESC']]
     }).then(objects => {
         globalFunctions.sendResult(res, objects);
     }).catch(err => {
