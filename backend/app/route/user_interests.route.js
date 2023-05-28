@@ -18,8 +18,8 @@ module.exports = (app) => {
     app.get('/api/user_interests/:id', user_interests.findById);
 
     // Получение данных абитуриента по user_id
-    app.get('/api/interest/user_id/:user_id', user_interests.findByUser_id);
+    app.get('/api/user_interests/user_id/:user_id', user_interests.findByUser_id);
   
     // Получение данных абитуриента по фамилии
-    app.get('/api/interest/interest_id/:interest_id', user_interests.findByInterest_id);
+    app.get('/api/user_interests/interest_id/:interest_id', user_interests.findByInterest_id);
 };
