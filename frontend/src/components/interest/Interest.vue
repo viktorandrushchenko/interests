@@ -4,7 +4,7 @@
         <div class="container-fluid"> 
           <div class="navbar-nav" id="navbarNav"> 
             <li class="nav-item"> 
-              <router-link class="nav-link" to="/addPost"> 
+              <router-link class="nav-link" :to="{name: 'add-post', params: {id: this.$route.params.id}}"> 
                 <span class="navbar-brand mb-0 h1">Добавить пост</span> 
               </router-link> 
             </li>  
@@ -17,11 +17,12 @@
             <li v-for="(post, index) in posts" :key="index" class="list-group-item d-flex justify-content-between align-items-start"> 
               <router-link class="nav-link" :to="{ name: 'interest-details', params: { id: post.id } }"> 
                 <div class="ms-2 me-auto"> 
-                  <div class="fw-bold">{{ users[post.user_id]?.username }}</div> 
-                  <div>{{ post.title }}</div> 
+                  <div class="badge bg-primary rounded-pill">{{ users[post.user_id]?.username }}</div> 
+                  <div class="fw-bold" >{{ post.title }}</div>
+                  <div>{{ post.body }}</div>                                    
                   <div class="small">{{ post.created_at }}</div> 
                 </div> 
-                <div class="badge bg-primary rounded-pill">{{ post.body }}</div> 
+                
               </router-link> 
             </li> 
           </ul> 
@@ -38,7 +39,7 @@
         data() { // данные компонента (определение переменных)
             return {
                 posts: [],
-                users: []
+                users: [],
             };
         },
         methods: { // методы компонента

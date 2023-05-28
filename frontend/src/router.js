@@ -17,7 +17,7 @@ import AddPost from "./components/post/AddPost";
 // определяем маршруты
 const routes = [
     {
-        path: "/addPost",
+        path: "/addPost/:id",
         name: "add-post",
         component: AddPost,
         meta: {

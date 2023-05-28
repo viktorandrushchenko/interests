@@ -21,7 +21,7 @@
                 <button v-on:click="newPost" class="btn btn-primary">Добавить новый пост</button>
             </div>
             <div>
-                <router-link to="/interest" class="btn btn-secondary">Вернуться к постам</router-link>
+                <router-link :to="{name: 'interest-details', params: {id: this.$route.params.id}}" class="btn btn-secondary">Вернуться к постам</router-link>
             </div>
         </div>
     </div>
@@ -34,9 +34,10 @@
         name: "AddInterest",
         data() {
             return {
-                interest: {
+                post: {
                     id: null,
-                    name: "",
+                    title: "",
+                    body: "",
                 },
                 submitted: false
             };
@@ -50,14 +51,16 @@
             addInterest(e) {
                 e.preventDefault(); // запрет отправки формы, так как обрабатывать будем с помощью методов axios
                 var data = {
-                    name: this.interest.name,
-                    user_id: this.currentUser.id
+                    title: this.post.title,
+                    body: this.post.body,
+                    user_id: this.currentUser.id,
+                    interest_id: this.$route.params.id
                 };
                 // Либо var data = this.user;
                 http
-                    .post("/addInterest", data)
+                    .post("/addPosts", data)
                     .then(response => { // запрос выполнился успешно
-                        this.interest.id = response.data.id;
+                        this.post.id = response.data.id;
                         this.submitted = true;
                     })
                     .catch(e => { // при выполнении запроса возникли ошибки
@@ -66,11 +69,12 @@
 
                 
             },
-            newInterest() {
+            newPost() {
                 this.submitted = false;
-                this.interest = {
+                this.post = {
                     id: null,
-                    name: "",
+                    title: "",
+                    body: "",
                 };
             }
         }
