@@ -23,12 +23,14 @@ app.use(cors(corsOptions));
 var interest = require('./app/route/interest.route.js');
 interest(app);
 
+var users = require('./app/route/users.route.js');
+users(app);
+
 var posts= require('./app/route/posts.route.js');
 posts(app);
 
 var user_interests= require('./app/route/user_interests.route.js');
 user_interests(app);
-
 
 var auth = require('./app/route/auth.route.js');
 auth(app);

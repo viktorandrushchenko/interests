@@ -42,7 +42,6 @@ db.sequelize = sequelize;
 
 // Подключение моделей
 db.interest = require('../model/interest.model.js')(sequelize, Sequelize);
-db.post_interests = require('../model/post_interests.model.js')(sequelize, Sequelize);
 db.posts = require('../model/posts.model.js')(sequelize, Sequelize);
 db.user_interests = require('../model/user_interests.model.js')(sequelize, Sequelize);
 db.users = require('../model/users.model.js')(sequelize, Sequelize);
