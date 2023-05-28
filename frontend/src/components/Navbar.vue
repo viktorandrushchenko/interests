@@ -10,7 +10,7 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/listUniversities">
+                            <router-link class="nav-link" to="/listMyInterests">
                                 <span class="navbar-brand mb-0 h1">Мои сообщества</span>
                             </router-link>
                         </li>

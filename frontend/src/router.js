@@ -10,8 +10,29 @@ import Register from "./components/authorization/Register";
 
 import store from "./store/index";
 
+import ListMyInterests from "./components/interest/ListMyInterests";
+import ListPosts from "./components/post/ListPosts";
+
 // определяем маршруты
 const routes = [
+    {
+        path: "/listPosts", // указание маршрута, по которому будем переходить к списку абитуриентов
+        name: "Posts", // имя маршрута
+        alias: "/Posts", // указание дополнительного маршрута
+        component: ListPosts, // компонент, на основании которого будет отрисовываться страница
+        meta: {
+            title: "Список постов"
+        }
+    },
+    {
+        path: "/listMyInterests", // указание маршрута, по которому будем переходить к списку абитуриентов
+        name: "Myinterests", // имя маршрута
+        alias: "/myInterests", // указание дополнительного маршрута
+        component: ListMyInterests, // компонент, на основании которого будет отрисовываться страница
+        meta: {
+            title: "Список моих сообществ"
+        }
+    },
     {
         path: "/listInterests", // указание маршрута, по которому будем переходить к списку абитуриентов
         name: "interests", // имя маршрута

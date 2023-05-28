@@ -37,11 +37,17 @@
                 submitted: false
             };
         },
+        computed: { // вычисляемые свойства
+            currentUser() {
+                return this.$store.state.auth.user;
+            }
+        },
         methods: {
             addInterest(e) {
                 e.preventDefault(); // запрет отправки формы, так как обрабатывать будем с помощью методов axios
                 var data = {
                     name: this.interest.name,
+                    user_id: this.currentUser.id
                 };
                 // Либо var data = this.user;
                 http
