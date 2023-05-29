@@ -1,5 +1,6 @@
 <template>
-    <div class="col-md-5">
+    <div class="form-container">
+        <div class="form-box col-md-5">
         <h4 class="mx-auto mt-4">Вход в систему</h4>
         <form name="form" @submit="handleLogin">
             <div class="form-group">
@@ -8,19 +9,20 @@
             <div class="form-group">
                 <input type="password" class="form-control" name="password" placeholder="Пароль" v-model="user.password" required/>
             </div>
-            <div class="form-group">
-                <button class="btn btn-primary" :disabled="loading">
-                    <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                    <span>Войти</span>
-                </button>
-            </div>
-            <router-link to="/register">
-                Зарегистрироваться
-            </router-link>
+                <div class="form-group d-flex justify-content-between align-items-center"> 
+                <button class="btn btn-primary" :disabled="loading"> 
+                    <span v-show="loading" class="spinner-border spinner-border-sm"></span> 
+                    <span>Войти</span> 
+                </button> 
+                <router-link to="/register" class="btn btn-secondary ml-2"> 
+                    Зарегистрироваться 
+                </router-link> 
+             </div>
             <div class="form-group">
                 <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
             </div>
         </form>
+    </div>
     </div>
 </template>
 <script>
@@ -65,3 +67,16 @@
         }
     };
 </script>
+
+<style>
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.form-box {
+  border: 1px solid #000000;
+  padding: 20px;
+}
+</style>

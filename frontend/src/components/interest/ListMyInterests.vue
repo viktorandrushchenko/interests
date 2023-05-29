@@ -84,4 +84,30 @@ import http from "../../http-common"; // подключение объекта, 
 .bg-custom {
     background-color: #b5d8f9;
 }
+.list-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  border: none;
+  border-radius: 0;
+  background-color: #f8f9fa;
+  margin-bottom: 10px;
+}
+
+.list-group-item:hover {
+  background-color: #c2c2c2;
+}
+
+.nav-link {
+  color: #000000;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #000000;
+  text-decoration: underline;
+}
 </style>

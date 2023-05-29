@@ -41,7 +41,7 @@
                 <div class="ms-2 me-auto"> 
                   <div class="badge bg-primary rounded-pill">{{ users[post.user_id]?.username }}</div> 
                   <div class="fw-bold" >{{ post.title }}</div>
-                  <div class="text-break">{{ post.body }}</div>                                    
+                  <div class="text-break form-box">{{ post.body }}</div>                                    
                   <div class="small">{{ post.created_at }}</div> 
                 </div> 
                 
@@ -185,5 +185,9 @@
 }
 .bg-custom {
     background-color: #b5d8f9;
+}
+.form-box {
+  border: 1px solid #000000;
+  padding: 5px;
 }
 </style>

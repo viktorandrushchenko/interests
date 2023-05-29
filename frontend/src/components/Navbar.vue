@@ -1,37 +1,40 @@
 <template>
     <div id="app">
-        <div v-if="displayContent">
-            <nav class="navbar navbar-expand-lg navbar-light bg-custom">
-                <div class="container">
-                    <div class="navbar-nav" id="navbarNav">
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/listInterests">
-                                <span class="navbar-brand mb-0 h1">Сообщества</span>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/listMyInterests">
-                                <span class="navbar-brand mb-0 h1">Мои сообщества</span>
-                            </router-link>
-                        </li>
-                        <div v-if="currentUser"> <!-- отступаем справа -->
-                            <h4 class="text-light">{{ currentUser.username }}</h4> <!-- меняем цвет текста на светлый -->
-                             <a href @click.prevent="logOut" class="text-light">Выйти</a> <!-- меняем цвет текста на светлый и убираем подчеркивание ссылки -->
-                        </div> 
-                         <div v-else>
-                            <router-link to="/login">
-                                <button class="btn btn-primary">Войти</button> <!-- добавляем стилизованную кнопку -->
-                            </router-link>
-                        </div>
-                    </div>
+      <div v-if="displayContent">
+        <nav class="navbar navbar-expand-lg navbar-light bg-custom">
+          <div class="container">
+            <div class="navbar-nav" id="navbarNav">
+              <li class="nav-item">
+                <router-link class="nav-link" to="/listInterests">
+                  <span class="navbar-brand mb-0 h1">Сообщества</span>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/listMyInterests">
+                  <span class="navbar-brand mb-0 h1">Мои сообщества</span>
+                </router-link>
+              </li>
+              <li class="nav-item ml-auto d-flex align-items-center">
+                <div v-if="currentUser" class="mr-3">
+                  <div class="d-flex align-items-center">
+                    <span class="badge bg-primary">{{ currentUser.username }}</span>
+                  </div>
                 </div>
-            </nav>
-        </div>
-        <div v-else>
-            <div class="mt-3 d-flex justify-content-center"> <!-- центрируем по горизонтали -->
-                <router-link to="/login" class="btn btn-primary btn-lg">Войти</router-link> <!-- добавляем стилизованную кнопку и увеличиваем размер -->
+            </li>
+                <li class="nav-item ml-auto d-flex align-items-center">
+                  <div class="ml-auto">
+                    <button v-if="currentUser" @click.prevent="logOut" class="btn btn-outline-dark mr-3">Выйти</button>
+                  </div>
+                </li>
             </div>
+          </div>
+        </nav>
+      </div>
+      <div v-else>
+        <div class="mt-3 d-flex justify-content-center"> <!-- центрируем по горизонтали -->
+          <router-link to="/login" class="btn btn-primary btn-lg">Перейти к входу</router-link> <!-- добавляем стилизованную кнопку и увеличиваем размер -->
         </div>
+      </div>
     </div>
   </template>
   

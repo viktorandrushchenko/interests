@@ -1,5 +1,6 @@
 <template>
-    <div class="col-md-5">
+    <div class="form-container">
+      <div class="form-box col-md-5">
       <h4 class="mx-auto mt-4">Регистрация пользователя</h4>
       <form name="form" @submit="handleRegister">
         <div v-if="!successful">
@@ -20,6 +21,7 @@
           <div v-if="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
         </div>
       </form>
+    </div>
     </div>
   </template>
   <script>
@@ -65,3 +67,19 @@
     }
   };
   </script>
+
+<style>
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.form-box {
+  border: 1px solid #000000;
+  padding: 20px;
+}
+.form-group {
+  margin-bottom: 10px;
+}
+</style>
