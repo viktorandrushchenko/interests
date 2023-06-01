@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div v-if="displayContent">
+      <div class="form-box">
     <ul class="list-group mt-3">
       <li v-for="(myInterest, index) in myInterests" :key="index" class="list-group-item">        
           <router-link class="nav-link" :to="{name: 'interest-details', params: {id: myInterest.interest_id}}">
@@ -8,6 +9,7 @@
         </router-link>
       </li>
     </ul>
+    </div>
     </div>
   </div>
 </template>
@@ -109,5 +111,10 @@ import http from "../../http-common"; // подключение объекта, 
 .nav-link:hover {
   color: #000000;
   text-decoration: underline;
+}
+.form-box {
+  border: 1px solid #000000;
+  padding: 20px;
+  background-color: #bed8ff;
 }
 </style>

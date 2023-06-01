@@ -1,5 +1,4 @@
-<template>
-    <div class="container">
+<template>   
       <nav class="navbar navbar-expand-lg navbar-light bg-custom">
         <div class="container-fluid">
           <div class="navbar-nav" id="navbarNav">
@@ -16,6 +15,8 @@
           </div>
         </div>
       </nav>
+      <div class="container">
+        <div class="form-box">
       <ul class="list-group mt-3">
         <li v-for="(interest, index) in interests" :key="index" class="list-group-item">
           <router-link class="nav-link" :to="{name: 'interest-details', params: {id: interest.id}}">
@@ -23,6 +24,7 @@
           </router-link>
         </li>
       </ul>
+      </div>
     </div>
   </template>
 
@@ -67,7 +69,7 @@
   padding-bottom: 0 !important;
 }
 .bg-custom {
-    background-color: #b5d8f9;
+    background-color: #69aff0;
 }
 .list-group-item {
   display: flex;
@@ -83,7 +85,7 @@
 }
 
 .list-group-item:hover {
-  background-color: #c2c2c2;
+  background-color: #2579f8;
 }
 
 .nav-link {
@@ -92,7 +94,12 @@
 }
 
 .nav-link:hover {
-  color: #000000;
+  color: #fffefe;
   text-decoration: underline;
+}
+.form-box {
+  border: 1px solid #000000;
+  padding: 20px;
+  background-color: #bed8ff;
 }
 </style>

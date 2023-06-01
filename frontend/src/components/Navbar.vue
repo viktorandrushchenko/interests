@@ -2,7 +2,6 @@
     <div id="app">
       <div v-if="displayContent">
         <nav class="navbar navbar-expand-lg navbar-light bg-custom">
-          <div class="container">
             <div class="navbar-nav" id="navbarNav">
               <li class="nav-item">
                 <router-link class="nav-link" to="/listInterests">
@@ -26,7 +25,6 @@
                     <button v-if="currentUser" @click.prevent="logOut" class="btn btn-outline-dark mr-3">Выйти</button>
                   </div>
                 </li>
-            </div>
           </div>
         </nav>
       </div>
@@ -87,6 +85,6 @@
       padding-bottom: 0 !important;
     }
     .bg-custom {
-        background-color: #b5e3f9;
+        background-color: #7dd5fd;
     }
   </style>

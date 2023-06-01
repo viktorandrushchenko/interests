@@ -1,5 +1,5 @@
 <template> 
-    <div class="container"> 
+     
       <nav class="navbar navbar-expand-lg navbar-light bg-custom"> 
         <div class="container-fluid"> 
           <div class="navbar-nav" id="navbarNav">  
@@ -33,8 +33,10 @@
           </div> 
         </div> 
       </nav> 
+ 
       <div class="row mt-3"> 
         <div class="col-md-8 offset-md-2"> 
+          <div class="form-box">
           <ul class="list-group"> 
             <li v-for="(post, index) in posts" :key="index" class="list-group-item d-flex justify-content-between align-items-start"> 
               <router-link class="nav-link" :to="{ name: 'post-details', params: { id: post.id } }"> 
@@ -43,14 +45,13 @@
                   <div class="fw-bold" >{{ post.title }}</div>
                   <div class="text-break form-box">{{ post.body }}</div>                                    
                   <div class="small">{{ post.created_at }}</div> 
-                </div> 
-                
+                </div>                
               </router-link> 
             </li> 
           </ul> 
+          </div>
         </div> 
       </div> 
-    </div> 
   </template> 
 
 <script>
@@ -189,5 +190,18 @@
 .form-box {
   border: 1px solid #000000;
   padding: 5px;
+  background-color: aliceblue;
+}
+.list-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  border: none;
+  border-radius: 0;
+  background-color: #8dc1f8;
+  margin-bottom: 10px;
 }
 </style>
