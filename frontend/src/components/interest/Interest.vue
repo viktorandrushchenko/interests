@@ -1,68 +1,84 @@
-<template>  
-      
-  <nav class="navbar navbar-expand-lg navbar-light bg-custom">  
-    <div class="container-fluid">  
+<template>   
+  <nav class="navbar navbar-expand-lg navbar-light bg-custom">   
+    <div class="container-fluid">   
       <div class="navbar-nav" id="navbarNav">   
-        <div v-if="!isAdmin">  
-          <div v-if="!isAvto">  
-          <li class="nav-item d-flex">  
-            <button v-on:click="addToInterest" class="btn btn-primary me-3">Вступить</button> 
-          </li> 
-          </div> 
-          <div v-else> 
-          <li class="nav-item d-flex">  
-            <button v-on:click="DeleteFromInterest" class="btn btn-primary me-3">Выйти</button> 
-          </li> 
-          <li class="nav-item d-flex">  
-            <router-link class="nav-link me-3" :to="{name: 'add-post', params: {id: this.$route.params.id}}">  
-              <span class="navbar-brand mb-0 h1">Добавить пост</span>  
-            </router-link>  
-          </li>  
-          <li class="nav-item d-flex">  
-            <router-link class="nav-link me-3" :to="{name: 'users', params: {id: this.$route.params.id}}">  
-              <span class="navbar-brand mb-0 h1">Участники сообщества : {{ userCount }}</span>  
-            </router-link>  
-          </li>  
-        </div> 
-        </div> 
-        <div v-else> 
-          <li class="nav-item d-flex">  
-            <button v-on:click="deleteInterest" class="btn btn-primary me-3">удалить сообщество</button> 
-          </li> 
-          <li class="nav-item d-flex">  
-            <router-link class="nav-link me-3" :to="{name: 'add-post', params: {id: this.$route.params.id}}">  
-              <span class="navbar-brand mb-0 h1">Добавить пост</span>  
-            </router-link>  
-          </li>  
-          <li class="nav-item d-flex">  
-            <router-link class="nav-link me-3" :to="{name: 'users', params: {id: this.$route.params.id}}">  
-              <span class="navbar-brand mb-0 h1">Участники сообщества: {{ userCount }}</span>  
-            </router-link>  
-          </li> 
-        </div> 
-      </div>  
-    </div>  
-  </nav>  
-
-  <div >  
-    <div >  
-      <div class="form-box"> 
-      <ul class="list-group">  
-        <li v-for="(post, index) in posts" :key="index" class="list-group-item d-flex justify-content-between align-items-start">  
-          <router-link class="nav-link" :to="{ name: 'post-details', params: { id: post.id, admin: isAdmin, intId: interestId }}">  
-            <div class="ms-2 me-auto">  
-              <div class="badge bg-primary rounded-pill">{{ users[post.user_id]?.username }}</div>  
-              <div class="fw-bold" >{{ post.title }}</div> 
-              <div class="text-break form-box1">{{ post.body }}</div>                                     
-              <div class="small">{{ post.created_at }}</div>  
-            </div>                 
-          </router-link>  
-        </li>  
-      </ul>  
-      </div> 
-    </div>  
-  </div>  
-</template> 
+        <div class="flex-grow-1">
+          <div v-if="!isAdmin">   
+            <div v-if="!isAvto">   
+              <div class="d-flex justify-content-center form-box2 nav-item d-flex mb-3">
+              <h3 class="align-self-center">{{ interest.name }}</h3> 
+            </div> 
+              <li class="nav-item d-flex">   
+                <button v-on:click="addToInterest" class="btn btn-primary me-3" style="width: 220px;">Вступить</button>  
+              </li>  
+            </div>  
+            <div v-else>  
+              <div class="d-flex justify-content-center form-box2 nav-item d-flex mb-3">
+              <h3 class="align-self-center">{{ interest.name }}</h3> 
+            </div> 
+              <li class="nav-item d-flex mb-3">   
+                <button v-on:click="DeleteFromInterest" class="btn btn-primary me-3" style="width: 220px;">Выйти</button>  
+              </li>  
+              <li class="nav-item d-flex mb-3">  
+              <button v-on:click="addPost" class="btn btn-primary me-3 btn-block" style="width: 220px;">
+                <router-link :to="{name: 'add-post', params: {id: this.$route.params.id}}" class="text-white" style="text-decoration: none;">
+                  Добавить пост
+                </router-link>
+              </button>  
+            </li>  
+            <li class="nav-item d-flex mb-3">    
+              <button class="btn btn-primary me-3 btn-block" style="width: 220px;">  
+                <router-link :to="{name: 'users', params: {id: this.$route.params.id}}" class="text-white" style="text-decoration: none;">  
+                  Участники сообщества: {{ userCount }}    
+                </router-link>    
+              </button>    
+            </li>  
+            </div>  
+          </div>  
+          <div v-else>  
+            <div class="d-flex justify-content-center form-box2 nav-item d-flex mb-3">
+              <input class="align-self-center" name="name" id="name" required v-model="interest.name" >
+            </div> 
+            <li class="nav-item d-flex mb-3">  
+              <button v-on:click="addPost" class="btn btn-primary me-3 btn-block" style="width: 220px;">
+                <router-link :to="{name: 'add-post', params: {id: this.$route.params.id}}" class="text-white" style="text-decoration: none;">
+                  Добавить пост
+                </router-link>
+              </button>  
+            </li>  
+            <li class="nav-item d-flex mb-3">    
+              <button class="btn btn-primary me-3 btn-block" style="width: 220px;">  
+                <router-link :to="{name: 'users', params: {id: this.$route.params.id}}" class="text-white" style="text-decoration: none;">  
+                  Участники сообщества: {{ userCount }}    
+                </router-link>    
+              </button>    
+            </li> 
+            <li class="nav-item d-flex mb-3">  
+              <button v-on:click="updateInterest" class="btn btn-primary me-3" style="width: 220px;">изменить название</button>  
+            </li>  
+            <li class="nav-item d-flex mb-3">  
+              <button v-on:click="deleteInterest" class="btn btn-danger me-3" style="width: 220px;">удалить сообщество</button>  
+            </li> 
+          </div>  
+        </div>
+        <div>  
+          <ul class="list-group">   
+            <li v-for="(post, index) in posts" :key="index" class="list-group-item d-flex justify-content-between align-items-start">   
+              <router-link class="nav-link" :to="{ name: 'post-details', params: { id: post.id, admin: isAdmin, intId: interestId }}">   
+                <div class="ms-2 me-auto">   
+                  <div class="badge bg-primary rounded-pill">{{ users[post.user_id]?.username }}</div>   
+                  <div class="fw-bold">{{ post.title }}</div>  
+                  <div class="text-break form-box1">{{ post.body }}</div>                                      
+                  <div class="small">{{ post.created_at }}</div>   
+                </div>                  
+              </router-link>   
+            </li>   
+          </ul>   
+        </div>  
+      </div>   
+    </div>   
+  </nav>   
+</template>
 
 <script>
     import http from "../../http-common"; // подключение объекта, который позволяет отправлять запросы серверу
@@ -75,7 +91,8 @@
                 users: [],
                 isAdmin: 0,
                 isAvto: 0,
-                userCount: 0
+                userCount: 0,
+                interest: []
             };
         },
         computed: { // вычисляемые свойства
@@ -87,6 +104,31 @@
             },
         },
         methods: {
+          updateInterest(e) {
+              e.preventDefault();
+              var data = {
+                name: this.interest.name,
+              };
+              http
+                  .post("/updateInterest/" + this.interestId, data)
+                  .then(() => {
+                    this.$router.push({ name: 'interest-details', params:{id: this.interestId} });
+                  })
+                  .catch(e => {
+                    console.log(e);
+                  });
+            },
+          getInterest() {
+                http
+                    .get("/interest/" + this.interestId) // обращаемся к серверу для получения списка абитуриентов
+                    .then(response => { // запрос выполнен успешно
+                        this.interest = response.data;
+                        console.log(this.interests);
+                    })
+                    .catch(e => { // запрос выполнен с ошибкой
+                        console.log(e);
+                    });
+            },
           getUsersInterest() {
                 http                   
                     .get("/user_interests/interest_id/" + this.interestId) // обращаемся к серверу для получения списка абитуриентов
@@ -102,7 +144,7 @@
                             .post(`/deleteInterest/${this.interestId}`)
                             .then(response => {
                               console.log(response.data); // выводим ответ сервера в консоль
-                              window.location.reload(); // перезагружаем страницу после удаления
+                              this.$router.push({ name: 'interests'});  // перезагружаем страницу после удаления
                             })
                             .catch(e => {
                               console.log(e);
@@ -191,6 +233,7 @@
             this.getUsers();
             this.getUserInterest();
             this.getUsersInterest();
+            this.getInterest();
         },
     }
 </script>
@@ -218,6 +261,12 @@
   border: 1px solid #000000;
   padding: 5px;
   background-color: #fafafa;
+}
+.form-box2 {
+  border: 1px solid #000000;
+  padding: 5px;
+  background-color: #fafafa;
+  width: 220px;
 }
 .list-group-item {
   display: flex;
