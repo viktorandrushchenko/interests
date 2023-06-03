@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div v-if="displayContent">
       <div class="form-box">
     <ul class="list-group mt-3">
@@ -100,7 +100,7 @@ import http from "../../http-common"; // подключение объекта, 
 }
 
 .list-group-item:hover {
-  background-color: #c2c2c2;
+  background-color: #5889f5;
 }
 
 .nav-link {
@@ -115,6 +115,6 @@ import http from "../../http-common"; // подключение объекта, 
 .form-box {
   border: 1px solid #000000;
   padding: 20px;
-  background-color: #bed8ff;
+  background-color: #69aff0;
 }
 </style>

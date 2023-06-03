@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-      <div v-if="displayContent">
-        <nav class="navbar navbar-expand-lg navbar-light bg-custom">
+      <div v-if="displayContent" class="top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-custom form-box">
             <div class="navbar-nav" id="navbarNav">
               <li class="nav-item">
                 <router-link class="nav-link" to="/listInterests">
@@ -13,18 +13,17 @@
                   <span class="navbar-brand mb-0 h1">Мои сообщества</span>
                 </router-link>
               </li>
-              <li class="nav-item ml-auto d-flex align-items-center">
+
                 <div v-if="currentUser" class="mr-3">
-                  <div class="d-flex align-items-center">
+                  <div class="user">
                     <span class="badge bg-primary">{{ currentUser.username }}</span>
                   </div>
                 </div>
-            </li>
-                <li class="nav-item ml-auto d-flex align-items-center">
-                  <div class="ml-auto">
+
+                  <div class="logOut">
                     <button v-if="currentUser" @click.prevent="logOut" class="btn btn-outline-dark mr-3">Выйти</button>
                   </div>
-                </li>
+
           </div>
         </nav>
       </div>
@@ -85,6 +84,20 @@
       padding-bottom: 0 !important;
     }
     .bg-custom {
-        background-color: #7dd5fd;
+        background-color: #69aff0;
+    }
+    .logOut{
+      position: absolute; /* Абсолютное позиционирование */
+      top: 17%; /* Положение от верхнего края */
+      left: 95%; /* Положение от левого края */
+    }
+    .user {
+      position: absolute; /* Абсолютное позиционирование */
+      top: 27%; /* Положение от верхнего края */
+      left: 92%; /* Положение от левого края */
+    }
+    .top {
+      position: relative;
+      margin-top: 0;
     }
   </style>

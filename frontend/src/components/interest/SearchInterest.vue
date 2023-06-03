@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div>
     <div>
         <h4>Поиск сообществ по названию</h4>
         <form @submit="searchInterestByName" class="mb-3">
@@ -11,7 +11,7 @@
 
         <ul class="list-group">
             <li v-for="(interest, index) in interests" :key="index" class="list-group-item">
-                <router-link :to="{name: 'interest-details', params: {id: interest.id}}">
+                <router-link class="nav-link" :to="{name: 'interest-details', params: {id: interest.id}}">
                     {{interest.name}}
                 </router-link>
             </li>

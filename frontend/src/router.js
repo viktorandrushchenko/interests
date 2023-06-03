@@ -15,10 +15,21 @@ import ListPosts from "./components/post/ListPosts";
 import AddPost from "./components/post/AddPost";
 import Post from "./components/post/PosT";
 
+import ListUsers from "./components/interest/ListUsers";
+
 // определяем маршруты
 const routes = [
     {
-        path: "/post/:id",
+        path: "/listUsers/:id", // указание маршрута, по которому будем переходить к списку абитуриентов
+        name: "users", // имя маршрута
+        alias: "/users", // указание дополнительного маршрута
+        component: ListUsers, // компонент, на основании которого будет отрисовываться страница
+        meta: {
+            title: "Список пользователей"
+        }
+    },
+    {
+        path: "/post/:id/:admin/:intId",
         name: "post-details",
         component: Post,
         props: true, // указываем, что компонент Abiturient.vue может принимать параметры в адресной строке, например, в path указан id

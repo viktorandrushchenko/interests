@@ -1,5 +1,5 @@
 <template>   
-      <nav class="navbar navbar-expand-lg navbar-light bg-custom">
+      <nav class="navbar navbar-expand-lg navbar-light bg-custom ">
         <div class="container-fluid">
           <div class="navbar-nav" id="navbarNav">
             <li class="nav-item">
@@ -15,7 +15,7 @@
           </div>
         </div>
       </nav>
-      <div class="container">
+      <div >
         <div class="form-box">
       <ul class="list-group mt-3">
         <li v-for="(interest, index) in interests" :key="index" class="list-group-item">
@@ -85,7 +85,7 @@
 }
 
 .list-group-item:hover {
-  background-color: #2579f8;
+  background-color: #5889f5;
 }
 
 .nav-link {
@@ -99,7 +99,7 @@
 }
 .form-box {
   border: 1px solid #000000;
-  padding: 20px;
-  background-color: #bed8ff;
+  padding: 0px;
+  background-color: #69aff0;
 }
 </style>

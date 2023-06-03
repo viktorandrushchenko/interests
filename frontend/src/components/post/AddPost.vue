@@ -12,9 +12,6 @@
                     <label for="short_name" class="form-label">Текст</label>
                     <input type="text"  class="form-control" id="name" name="name" placeholder="Введите текст" required v-model="post.body">
                 </div>
-                <div>
-                    <router-link :to="{name: 'interest-details', params: {id: this.$route.params.id}}" class="btn btn-secondary">Вернуться к постам</router-link>
-                </div>
                 <button type="submit" class="btn btn-success">Добавить</button>
             </form>
         </div>

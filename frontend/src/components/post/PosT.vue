@@ -1,16 +1,17 @@
-<template>
-    <div class="container">       
-      <div class="row mt-3"> 
+<template>       
+      <div class="row mt-3 form-box"> 
         <div class="col-md-8 offset-md-2"> 
                 <div class="ms-2 me-auto"> 
                   <div class="badge bg-primary rounded-pill">{{ users[posts.user_id]?.username}}</div> 
                   <div class="fw-bold" >{{ posts.title }}</div>
                   <div class="text-break form-box">{{ posts.body }}</div>                                    
                   <div class="small">{{ posts.created_at }}</div> 
+                  <div v-if="isAdmin== 'true' ? 1 : 0 || currentUser.id==posts.user_id ? 1 : 0">
+                    <button v-on:click="deletePost" class="btn btn-primary">удалить</button>
+                  </div>
                 </div>                 
         </div> 
       </div> 
-    </div> 
 </template>
 
 <script>
@@ -38,8 +39,25 @@
             postId() {
               return this.$route.params.id
             },
+            isAdmin() {
+              return this.$route.params.admin
+            },
+            intId() {
+              return this.$route.params.intId
+            },
         },
         methods: {
+          deletePost() {                 
+            http 
+              .post(`/deletePosts/${this.postId}`) 
+              .then(response => { 
+                console.log(response.data); // выводим ответ сервера в консоль 
+                this.$router.push({ name: 'interest-details', params:{id: this.intId} }); // переходим на страницу со списком всех постов
+              }) 
+              .catch(e => { 
+                console.log(e); 
+              }); 
+          },
           getPosts() {
                 http
                     .get("/posts/" + this.postId ) // обращаемся к серверу для получения списка абитуриентов
