@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
-    var Posts = sequelize.define(
-        'posts', // определяем имя таблицы
+    var Comments = sequelize.define(
+        'comments', // определяем имя таблицы
         {
             id: {
                 type: Sequelize.INTEGER,
@@ -12,15 +12,11 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.INTEGER,
                 allowNull: false
             },
-            title: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
             body: {
                 type: Sequelize.TEXT,
                 allowNull: false
             },
-            interest_id: {
+            post_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false
             },
@@ -31,29 +27,21 @@ module.exports = (sequelize, Sequelize) => {
         });
 
     // Определяем связи таблицы direction с другими таблицами
-    Posts.associate = (models) => {
+    Comments.associate = (models) => {
         // Определение связи один-ко-многим с таблицей university. Это определение связи с одной стороны.
         // Связь также определена со второй стороны (со стороны модели university): в файле university.model.js
-        Posts.belongsTo(models.interest, {
-            foreignKey: 'interest_id'
+        Comments.belongsTo(models.posts, {
+            foreignKey: 'post_id'
         });
 
 
         // Определение связи один-ко-многим с таблицей statement. Это определение связи с одной стороны.
         // Связь также определена со второй стороны (со стороны модели statement): в файле statement.model.js
-        Posts.belongsTo(models.users, {
+        Comments.belongsTo(models.users, {
             foreignKey: 'user_id'
         });
 
         
-        Posts.hasMany(models.comments, {
-            foreignKey: 'post_id',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            sourceKey: 'id'
-        });
-
-        
     };
-    return Posts;
+    return Comments;
 };

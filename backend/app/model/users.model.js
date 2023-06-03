@@ -36,6 +36,13 @@ module.exports = (sequelize, Sequelize) => {
             sourceKey: 'id'
         });
 
+        Users.hasMany(models.comments, {
+            foreignKey: 'user_id',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            sourceKey: 'id'
+        });
+
 
         
     };

@@ -45,6 +45,7 @@ db.interest = require('../model/interest.model.js')(sequelize, Sequelize);
 db.posts = require('../model/posts.model.js')(sequelize, Sequelize);
 db.user_interests = require('../model/user_interests.model.js')(sequelize, Sequelize);
 db.users = require('../model/users.model.js')(sequelize, Sequelize);
+db.comments = require('../model/comments.model.js')(sequelize, Sequelize);
 
 // Связывание моделей без импорта файлов (то есть, чтобы в файле описания любой модели можно было
 // обращаться к другим моделям по имени без необходимости импорта в виде require(...))

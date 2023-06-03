@@ -32,5 +32,8 @@ posts(app);
 var user_interests= require('./app/route/user_interests.route.js');
 user_interests(app);
 
+var comments= require('./app/route/comments.route.js');
+comments(app);
+
 var auth = require('./app/route/auth.route.js');
 auth(app);
