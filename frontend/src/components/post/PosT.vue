@@ -29,10 +29,25 @@
                 </div>                 
         </div> 
       </div> 
+      <div>  
+        <textarea class="text-break form-box form-control" id="body" name="body" placeholder="Введите текст комментария" required v-model="comments.body" rows="3"></textarea> 
+        <button v-on:click="addComment" class="btn btn-primary me-3">Добавить комментарий</button> 
+          <ul class="list-group">   
+            <li v-for="(comment, index) in comments" :key="index" class="list-group-item d-flex justify-content-between align-items-start">   
+              <router-link class="nav-link" :to="{ name: 'comment-details', params: {id: comment.id, admin: isAdmin, postId: postId, intId: intId}}">   
+                <div class="ms-2 me-auto">   
+                  <div class="badge bg-primary rounded-pill">{{ users[comment.user_id]?.username }}</div>     
+                  <div class="text-break form-box1">{{ comment.body }}</div>                                      
+                  <div class="small">{{ comment.created_at }}</div>   
+                </div>                  
+              </router-link>   
+            </li>   
+          </ul>   
+        </div> 
 </template>
 
 <script>
-    import http from "../../http-common"; // подключение объекта, который позволяет отправлять запросы серверу
+import http from "../../http-common"; // подключение объекта, который позволяет отправлять запросы серверу
 
     export default {
         name: "ListPosts", // Имя шаблона
@@ -47,6 +62,7 @@
                     created_at: null,
                 },
                 users: [],
+                comments: []
             };
         },
         computed: { // вычисляемые свойства
@@ -64,7 +80,37 @@
             },
         },
         methods: {
-          
+          addComment(e) {
+                e.preventDefault(); // запрет отправки формы, так как обрабатывать будем с помощью методов axios
+                var data = {
+                    user_id: this.currentUser.id,
+                    body: this.comments.body,                  
+                    post_id: this.postId
+                };
+                // Либо var data = this.user;
+                http
+                    .post("/addComments", data)
+                    .then(response => { // запрос выполнился успешно
+                        this.comments.id = response.data.id;
+                        window.location.reload();
+                    })
+                    .catch(e => { // при выполнении запроса возникли ошибки
+                        console.log(e);
+                    });
+
+                
+            },
+          getComments() {
+                http
+                    .get("/comments/post_id/" + this.postId ) // обращаемся к серверу для получения списка абитуриентов
+                    .then(response => { // запрос выполнен успешно
+                        this.comments = response.data;
+                        console.log(this.postId);
+                    })
+                    .catch(e => { // запрос выполнен с ошибкой
+                        console.log(e);
+                    });
+            },
           deletePost() {                 
             http 
               .post(`/deletePosts/${this.postId}`) 
@@ -121,6 +167,7 @@
         mounted() { // загружаем данные абитуриентов. Обработчик mounted() вызывается после монтирования экземпляра шаблона
             this.getPosts();
             this.getUsers();
+            this.getComments();
         },
     }
 </script>

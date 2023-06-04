@@ -17,8 +17,19 @@ import Post from "./components/post/PosT";
 
 import ListUsers from "./components/interest/ListUsers";
 
+import Comment from "./components/comment/ComMent";
+
 // определяем маршруты
 const routes = [
+    {
+        path: "/comment/:id/:admin/:postId/:intId",
+        name: "comment-details",
+        component: Comment,
+        props: true, // указываем, что компонент Abiturient.vue может принимать параметры в адресной строке, например, в path указан id
+        meta: {
+            title: "Данные комментария"
+        }
+    },
     {
         path: "/listUsers/:id", // указание маршрута, по которому будем переходить к списку абитуриентов
         name: "users", // имя маршрута
