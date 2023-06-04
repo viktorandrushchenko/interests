@@ -62,9 +62,9 @@
           </div>  
         </div>
         <div>  
-          <ul class="list-group">   
+          <ul class="list-group post-container">   
             <li v-for="(post, index) in posts" :key="index" class="list-group-item d-flex justify-content-between align-items-start">   
-              <router-link class="nav-link" :to="{ name: 'post-details', params: { id: post.id, admin: isAdmin, intId: interestId }}">   
+              <router-link class="nav-link" :to="{ name: 'post-details', params: { id: post.id, admin: isAdmin, intId: interestId, isAvto: isAvto}}">   
                 <div class="ms-2 me-auto">   
                   <div class="badge bg-primary rounded-pill">{{ users[post.user_id]?.username }}</div>   
                   <div class="fw-bold">{{ post.title }}</div>  
@@ -279,5 +279,9 @@
   border-radius: 0;
   background-color: #ffffff;
   margin-bottom: 10px;
+}
+.post-container {
+  height: 840px; /* задаем высоту контейнера комментариев в пикселях */
+  overflow-y: scroll; /* добавляем вертикальную прокрутку */
 }
 </style>

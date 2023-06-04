@@ -40,7 +40,7 @@ const routes = [
         }
     },
     {
-        path: "/post/:id/:admin/:intId",
+        path: "/post/:id/:admin/:intId/:isAvto",
         name: "post-details",
         component: Post,
         props: true, // указываем, что компонент Abiturient.vue может принимать параметры в адресной строке, например, в path указан id

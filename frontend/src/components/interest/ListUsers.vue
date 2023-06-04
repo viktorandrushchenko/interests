@@ -4,8 +4,8 @@
         <ul class="list-group"> 
             <li v-for="(usersInterest, index) in usersInterests" :key="index" class="list-group-item"> 
                 <h3 class="font-weight-bold text-secondary"> 
-                    {{currentUser.id==usersInterest.user_id ? "Ты" : ""   }} {{users[usersInterest.user_id]?.username}} 
-                     - {{usersInterest.admin ? 'Администратор' : 'Пользователь'}}                 
+                    {{currentUser.id==usersInterest.user_id ? "Вы:" : ""   }} {{users[usersInterest.user_id]?.username}} 
+                      {{usersInterest.admin ? ' - Администратор' : ''}}                 
                 </h3> 
             </li> 
         </ul> 
