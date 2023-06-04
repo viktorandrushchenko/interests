@@ -1,6 +1,7 @@
 var db = require('../config/db.config.js');
 var Posts = db.posts;
 var globalFunctions = require('../config/global.functions.js');
+const Sequelize = require('sequelize');
 
 exports.findAll = (req, res) => {
     Posts.findAll()
@@ -63,7 +64,9 @@ exports.delete = (req, res) => {
 exports.findById = (req, res) => {
     Posts.findByPk(req.params.id)
         .then(object => {
-            globalFunctions.sendResult(res, object);
+            const json = object.toJSON();
+            json.created_at = new Date(json.created_at).toLocaleString();
+            globalFunctions.sendResult(res, json);
         })
         .catch(err => {
             globalFunctions.sendError(res, err);
@@ -73,6 +76,13 @@ exports.findById = (req, res) => {
 // Получение данных абитуриента по id
 exports.findByInterests_id = (req, res) => {
     Posts.findAll({
+        attributes: [
+            'id',
+            'user_id',
+            'title',
+            'body',
+            [Sequelize.fn('DATE_FORMAT', Sequelize.col('created_at'), '%Y-%m-%d %H:%i:%s'), 'created_at']
+        ],
         where: {
             interest_id: req.params.interest_id
         },
@@ -83,3 +93,4 @@ exports.findByInterests_id = (req, res) => {
         globalFunctions.sendError(res, err);
     })
 };
+

@@ -2,6 +2,8 @@ var db = require('../config/db.config.js');
 var Interest = db.interest;
 var User_interests = db.user_interests;
 var globalFunctions = require('../config/global.functions.js');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 exports.findAll = (req, res) => {
     Interest.findAll()
@@ -76,11 +78,13 @@ exports.findById = (req, res) => {
         })
 };
 
-// Получение данных абитуриента по фамилии
+// Получение данных абитуриента по фамилии  
 exports.findByName = (req, res) => {
     Interest.findAll({
         where: {
-            name: req.params.name
+            name: {
+                [Op.like]: req.params.name + '%'
+            }
         }
     }).then(objects => {
         globalFunctions.sendResult(res, objects);

@@ -1,6 +1,7 @@
 var db = require('../config/db.config.js');
 var Comments = db.comments;
 var globalFunctions = require('../config/global.functions.js');
+const Sequelize = require('sequelize');
 
 exports.findAll = (req, res) => {
     Comments.findAll()
@@ -70,6 +71,12 @@ exports.findById = (req, res) => {
 // Получение данных абитуриента по id
 exports.findByPost_id = (req, res) => {
     Comments.findAll({
+        attributes: [
+            'id',
+            'user_id',
+            'body',
+            [Sequelize.fn('DATE_FORMAT', Sequelize.col('created_at'), '%Y-%m-%d %H:%i:%s'), 'created_at']
+        ],
         where: {
             post_id: req.params.post_id
         },
