@@ -30,11 +30,11 @@
         </div> 
       </div> 
       <div>  
-        <div v-if="isAvto == 1 ? 1 : 0">
-        <textarea class="text-break form-box form-control" id="body" name="body" placeholder="Введите текст комментария" required v-model="comments.body" rows="3"></textarea> 
-        <button v-on:click="addComment" class="btn btn-primary me-3">Добавить комментарий</button> 
+      <div v-if="isAvto == 1 ? 1 : 0">
+        <textarea class="text-break form-box form-control mt-3" id="body" name="body" placeholder="Введите текст комментария" required v-model="comments.body" rows="3"></textarea>  
+        <button v-on:click="addComment" class="btn btn-primary mt-3 me-3">Добавить комментарий</button>
       </div>
-          <ul class="list-group comments-container">   
+          <ul class="list-group comments-container mt-3">   
             <li v-for="(comment, index) in comments" :key="index" class="list-group-item d-flex justify-content-between align-items-start">   
               <router-link class="nav-link" :to="{ name: 'comment-details', params: {id: comment.id, admin: isAdmin, postId: postId, intId: intId}}">   
                 <div class="ms-2 me-auto">   
@@ -196,7 +196,7 @@ import http from "../../http-common"; // подключение объекта, 
   padding: 5px;
 }
 .comments-container {
-  height: 550px; /* задаем высоту контейнера комментариев в пикселях */
+  height: 430px; /* задаем высоту контейнера комментариев в пикселях */
   overflow-y: scroll; /* добавляем вертикальную прокрутку */
 }
 </style>

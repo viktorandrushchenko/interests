@@ -1,13 +1,10 @@
 <template> 
     <div class="text-center"> 
-        <h2 style="font-style: italic;">Участники сообщества</h2> 
+        <h2 style="font-style: italic;">Сообщества</h2> 
         <ul class="list-group"> 
             <li v-for="(usersInterest, index) in usersInterests" :key="index" class="list-group-item"> 
                 <h3 class="font-weight-bold text-secondary"> 
-                    <router-link :to="{name: 'userInterests', params: {user_id: usersInterest.user_id}}"  style="text-decoration: none;">
-                    {{currentUser.id==usersInterest.user_id ? "Вы:" : ""   }} {{users[usersInterest.user_id]?.username}} 
-                      {{usersInterest.admin ? ' - Администратор' : ''}} 
-                    </router-link>                
+                    {{interests[usersInterest.interest_id]?.name}}  {{usersInterest.admin ? ' - Администратор' : ''}}                 
                 </h3> 
             </li> 
         </ul> 
@@ -21,21 +18,18 @@
         data() {
             return {
                 usersInterests: [],
-                users: [],
+                interests: [],
             };
         },
         computed: { // вычисляемые свойства
-            interestId() {
-              return this.$route.params.id
+            userId() {
+              return this.$route.params.user_id
             },
-            currentUser() {
-                return this.$store.state.auth.user;
-            }
         },
         methods: {
             getUsersInterests() {
                 http
-                    .get("/user_interests/interest_id/" + this.interestId)
+                    .get("/user_interests/user_id/" + this.userId)
                     .then(response => {
                             this.usersInterests = response.data;
                     })
@@ -43,11 +37,11 @@
                         console.log(e);
                     });
             },
-            getUsers() {
+            getInterests() {
                 http
-                    .get("/users")
+                    .get("/interests")
                     .then(response => {
-                    this.users = response.data.reduce((acc, item) => {
+                    this.interests = response.data.reduce((acc, item) => {
                         acc[item.id] = item;
                         return acc;
                     }, {});
@@ -59,7 +53,7 @@
         },
         mounted() { // загружаем данные абитуриентов. Обработчик mounted() вызывается после монтирования экземпляра шаблона
             this.getUsersInterests();
-            this.getUsers();
+            this.getInterests();
         }
     };
 </script>

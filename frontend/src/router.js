@@ -19,8 +19,19 @@ import ListUsers from "./components/interest/ListUsers";
 
 import Comment from "./components/comment/ComMent";
 
+import ListUserInterests from "./components/interest/ListUserInterests";
+
 // определяем маршруты
 const routes = [
+    {
+        path: "/listUserInterests/:user_id", // указание маршрута, по которому будем переходить к списку абитуриентов
+        name: "userInterests", // имя маршрута
+        alias: "/userInterests", // указание дополнительного маршрута
+        component: ListUserInterests, // компонент, на основании которого будет отрисовываться страница
+        meta: {
+            title: "Список сообществ пользователя"
+        }
+    },
     {
         path: "/comment/:id/:admin/:postId/:intId",
         name: "comment-details",
